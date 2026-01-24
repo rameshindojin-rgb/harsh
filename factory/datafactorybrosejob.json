@@ -1,0 +1,9 @@
+{
+	"name": "datafactorybrosejob",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6da230bd-acc0-45b9-8017-16f108ecb130",
+		"tenantId": "d353730e-e983-43c8-aa55-b07a0774da79"
+	}
+}
