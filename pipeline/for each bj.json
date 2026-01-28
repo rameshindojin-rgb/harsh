@@ -1,5 +1,5 @@
 {
-	"name": "if condition",
+	"name": "for each bj",
 	"properties": {
 		"activities": [
 			{
@@ -16,15 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_datalake",
+						"referenceName": "sourcefolder",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"exists"
+						"childItems"
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
-						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -33,8 +32,8 @@
 				}
 			},
 			{
-				"name": "If Condition1",
-				"type": "IfCondition",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata1",
@@ -45,14 +44,15 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@activity('Get Metadata1').output.exists",
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
 						"type": "Expression"
 					},
-					"ifTrueActivities": [
+					"isSequential": true,
+					"activities": [
 						{
-							"name": "Copy data1",
-							"type": "Copy",
+							"name": "Get Metadata2",
+							"type": "GetMetadata",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -63,40 +63,21 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "JsonSink",
-									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
-									},
-									"formatSettings": {
-										"type": "JsonWriteSettings"
-									}
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "ds_datalake",
+								"dataset": {
+									"referenceName": "sourcefolder",
 									"type": "DatasetReference"
+								},
+								"fieldList": [
+									"itemName"
+								],
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
 								}
-							],
-							"outputs": [
-								{
-									"referenceName": "ds_blob_sink",
-									"type": "DatasetReference"
-								}
-							]
+							}
 						}
 					]
 				}
