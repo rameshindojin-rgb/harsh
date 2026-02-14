@@ -1,0 +1,149 @@
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #ffd8ea 0%, #ffb8d8 38%, #ff92c3 100%);
+  color: #7d194b;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  overflow: hidden;
+}
+
+.card {
+  width: min(560px, 100%);
+  min-height: 420px;
+  padding: 1.5rem;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(3px);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 35px rgba(178, 36, 97, 0.25);
+  text-align: center;
+  position: relative;
+}
+
+.kicker {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+}
+
+.subtext,
+.result {
+  margin-top: 1rem;
+  min-height: 48px;
+  font-size: clamp(1rem, 3.8vw, 1.2rem);
+  transition: all 0.3s ease;
+}
+
+.result {
+  color: #b0005b;
+  font-weight: 700;
+}
+
+.buttonStage {
+  position: relative;
+  margin-top: 1rem;
+  min-height: 210px;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.75rem 1.35rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.yesButton {
+  position: absolute;
+  left: 24%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  background: #ff2c88;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(255, 44, 136, 0.4);
+}
+
+.yesButton:disabled {
+  opacity: 0.88;
+  cursor: default;
+}
+
+.noButton {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  color: #bb2d79;
+  border: 2px solid #ff7db8;
+  box-shadow: 0 8px 20px rgba(188, 45, 121, 0.2);
+}
+
+.heartLayer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -10%;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  animation-name: heartFloat;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes heartFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift), -120vh, 0) scale(1.25);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    min-height: 500px;
+  }
+
+  .buttonStage {
+    min-height: 260px;
+  }
+
+  .yesButton {
+    left: 30%;
+    top: 66%;
+  }
+}
